@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { MoreHorizontal, Archive, ArchiveRestore, Trash2, FileText, StickyNote } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +16,7 @@ import { useUpdateNotebook } from '@/lib/hooks/use-notebooks'
 import { NotebookDeleteDialog } from './NotebookDeleteDialog'
 import { useState } from 'react'
 import { useTranslation } from '@/lib/hooks/use-translation'
-import { getDateLocale } from '@/lib/utils/date-locale'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 interface NotebookCardProps {
   notebook: NotebookResponse
 }
@@ -106,10 +105,7 @@ export function NotebookCard({ notebook }: NotebookCardProps) {
             </CardDescription>
 
             <div className="mt-3 text-xs text-muted-foreground">
-              {t('common.updated').replace('{time}', formatDistanceToNow(new Date(notebook.updated), { 
-                addSuffix: true,
-                locale: getDateLocale(language)
-              }))}
+              {t('common.updated').replace('{time}', formatRelativeTime(notebook.updated, language))}
             </div>
 
             {/* Item counts footer */}

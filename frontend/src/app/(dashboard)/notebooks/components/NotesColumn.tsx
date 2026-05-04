@@ -15,8 +15,6 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Badge } from '@/components/ui/badge'
 import { NoteEditorDialog } from './NoteEditorDialog'
-import { getDateLocale } from '@/lib/utils/date-locale'
-import { formatDistanceToNow } from 'date-fns'
 import { ContextToggle } from '@/components/common/ContextToggle'
 import { ContextMode } from '../[id]/page'
 import { useDeleteNote } from '@/lib/hooks/use-notes'
@@ -24,6 +22,7 @@ import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { CollapsibleColumn, createCollapseButton } from '@/components/notebooks/CollapsibleColumn'
 import { useNotebookColumnsStore } from '@/lib/stores/notebook-columns-store'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 
 interface NotesColumnProps {
   notes?: NoteResponse[]
@@ -133,10 +132,7 @@ export function NotesColumn({
 
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-muted-foreground">
-                          {formatDistanceToNow(new Date(note.updated), { 
-                            addSuffix: true,
-                            locale: getDateLocale(language)
-                          })}
+                          {formatRelativeTime(note.updated, language)}
                         </span>
 
                         {/* Context toggle - only show if handler provided */}

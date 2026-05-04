@@ -61,10 +61,9 @@ import {
   AlertCircle,
   MessageSquare,
 } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
-import { getDateLocale } from '@/lib/utils/date-locale'
 import { toast } from 'sonner'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatDateTime, formatRelativeTime } from '@/lib/utils/formatter'
 import { SourceInsightDialog } from '@/components/source/SourceInsightDialog'
 import { NotebookAssociations } from '@/components/source/NotebookAssociations'
 
@@ -776,25 +775,19 @@ export function SourceDetailContent({
                     <div>
                       <p className="text-xs font-medium text-muted-foreground">{t('common.created_label')}</p>
                       <p className="text-sm">
-                        {formatDistanceToNow(new Date(source.created), {
-                          addSuffix: true,
-                          locale: getDateLocale(language)
-                        })}
+                        {formatRelativeTime(source.created, language)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(source.created).toLocaleString()}
+                        {formatDateTime(source.created, language)}
                       </p>
                     </div>
                     <div>
                       <p className="text-xs font-medium text-muted-foreground">{t('common.updated_label')}</p>
                       <p className="text-sm">
-                        {formatDistanceToNow(new Date(source.updated), {
-                          addSuffix: true,
-                          locale: getDateLocale(language)
-                        })}
+                        {formatRelativeTime(source.updated, language)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(source.updated).toLocaleString()}
+                        {formatDateTime(source.updated, language)}
                       </p>
                     </div>
                   </div>

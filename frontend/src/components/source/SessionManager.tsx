@@ -15,9 +15,8 @@ import {
   X,
   Clock
 } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
-import { getDateLocale } from '@/lib/utils/date-locale'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -224,10 +223,7 @@ export function SessionManager({
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           <Clock className="h-3 w-3" />
-                          {formatDistanceToNow(new Date(session.created), {
-                            addSuffix: true,
-                            locale: getDateLocale(language)
-                          })}
+                          {formatRelativeTime(session.created, language)}
                         </div>
                         {session.message_count != null && session.message_count > 0 && (
                           <Badge variant="secondary" className="mt-2 text-xs">
