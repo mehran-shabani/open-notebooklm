@@ -1,10 +1,33 @@
 export const faIR = {
   common: {
     appName: 'اوپن نوت‌بوک',
+    show: 'نمایش',
+    hide: 'پنهان‌سازی',
+    test: 'آزمایش',
+    models: 'مدل‌ها',
+    context: {
+      label: 'زمینه:',
+      empty: 'هیچ منبع یا یادداشتی در زمینه گفتگو قرار نگرفته است. برای افزودن، آیکون‌های کارت‌ها را تغییر دهید.',
+      insightsSources: 'بینش برای {count} منبع',
+      fullSources: '{count} منبع کامل',
+      fullNotes: '{count} یادداشت کامل',
+      tokens: '{count} توکن',
+      chars: '{count} کاراکتر',
+    },
   },
   auth: {},
   dashboard: {},
   chat: {},
   settings: {},
+  apiKeys: {
+    vertexProjectPlaceholder: 'my-gcp-project',
+    vertexLocationPlaceholder: 'us-central1',
+    vertexCredentialsPlaceholder: '/path/to/service-account.json',
+    selectCredential: 'انتخاب اعتبارنامه',
+    linkedModelsCount: 'این اعتبارنامه {count} مدل متصل دارد.',
+    migrateModelsTo: 'انتقال مدل‌ها به:',
+    migrateAndDelete: 'انتقال و حذف',
+    deleteWithModels: 'حذف همراه مدل‌ها',
+  },
   errors: {},
 }
