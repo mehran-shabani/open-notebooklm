@@ -4,10 +4,11 @@ import { NotebookResponse } from '@/lib/types/api'
 import { NotebookCard } from './NotebookCard'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { EmptyState } from '@/components/common/EmptyState'
-import { Book, ChevronDown, ChevronRight, Plus } from 'lucide-react'
+import { Book, ChevronDown, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import i18n from '@/lib/i18n'
 
 interface NotebookListProps {
   notebooks?: NotebookResponse[]
@@ -49,7 +50,7 @@ export function NotebookList({
         description={emptyDescription ?? t('chat.startByCreating')}
         action={onAction && actionLabel ? (
           <Button onClick={onAction} variant="outline" className="mt-4">
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-4 w-4 me-2" />
             {actionLabel}
           </Button>
         ) : undefined}
@@ -69,7 +70,7 @@ export function NotebookList({
             {isExpanded ? (
               <ChevronDown className="h-4 w-4" />
             ) : (
-              <ChevronRight className="h-4 w-4" />
+              i18n.language.toLowerCase().startsWith('fa') ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />
             )}
           </Button>
         )}
