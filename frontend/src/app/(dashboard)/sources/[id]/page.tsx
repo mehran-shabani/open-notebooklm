@@ -2,8 +2,9 @@
 
 import { useRouter, useParams } from 'next/navigation'
 import { useCallback } from 'react'
+import i18n from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useSourceChat } from '@/lib/hooks/useSourceChat'
 import { ChatPanel } from '@/components/source/ChatPanel'
 import { useNavigation } from '@/lib/hooks/use-navigation'
@@ -34,7 +35,7 @@ export default function SourceDetailPage() {
           onClick={handleBack}
           className="mb-4"
         >
-          <ArrowLeft className="mr-2 h-4 w-4" />
+          {i18n.language.toLowerCase().startsWith('fa') ? <ArrowRight className="me-2 h-4 w-4" /> : <ArrowLeft className="me-2 h-4 w-4" />}
           {navigation.getReturnLabel()}
         </Button>
       </div>
