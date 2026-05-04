@@ -11,7 +11,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { AlertCircle } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { useTranslation } from '@/lib/hooks/use-translation'
-import { formatDateTime } from '@/lib/utils/formatter'
 
 export function LoginForm() {
   const { t, language } = useTranslation()
@@ -103,7 +102,7 @@ export function LoginForm() {
                   <div className="font-medium">{t('common.diagnosticInfo')}:</div>
                   <div className="space-y-1 font-mono">
                     <div>{t('common.version')}: {configInfo.version}</div>
-                    <div>{t('common.built')}: {formatDateTime(configInfo.buildTime, language)}</div>
+                    <div>{t('common.built')}: {new Date(configInfo.buildTime).toLocaleString(language === 'zh-CN' ? 'zh-CN' : language === 'zh-TW' ? 'zh-TW' : 'en-US')}</div>
                     <div className="break-all">{t('common.apiUrl')}: {configInfo.apiUrl}</div>
                     <div className="break-all">{t('common.frontendUrl')}: {typeof window !== 'undefined' ? window.location.href : 'N/A'}</div>
                   </div>

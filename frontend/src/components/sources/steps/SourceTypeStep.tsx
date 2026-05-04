@@ -11,7 +11,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Controller } from "react-hook-form"
-import { formatNumber } from '@/lib/utils/formatter'
 
 interface CreateSourceFormData {
   type: 'link' | 'upload' | 'text'
@@ -99,7 +98,7 @@ interface SourceTypeStepProps {
 const MAX_BATCH_SIZE = 50
 
 export function SourceTypeStep({ control, register, setValue, errors, urlValidationErrors, onClearUrlErrors }: SourceTypeStepProps) {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   // Watch the selected type and inputs to detect batch mode
   const selectedType = useWatch({ control, name: 'type' })
   const urlInput = useWatch({ control, name: 'url' })
@@ -265,7 +264,7 @@ export function SourceTypeStep({ control, register, setValue, errors, urlValidat
                                 <FileIcon className="h-3 w-3" />
                                 <span className="truncate">{file.name}</span>
                                 <span className="text-muted-foreground/50">
-                                  ({formatNumber(file.size / 1024, language, { maximumFractionDigits: 1, minimumFractionDigits: 1 })} KB)
+                                  ({(file.size / 1024).toFixed(1)} KB)
                                 </span>
                               </li>
                             ))}

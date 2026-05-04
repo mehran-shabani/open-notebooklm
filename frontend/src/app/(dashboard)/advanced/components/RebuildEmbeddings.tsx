@@ -19,10 +19,9 @@ import {
 import { embeddingApi } from '@/lib/api/embedding'
 import type { RebuildEmbeddingsRequest, RebuildStatusResponse } from '@/lib/api/embedding'
 import { useTranslation } from '@/lib/hooks/use-translation'
-import { formatDateTime, formatNumber } from '@/lib/utils/formatter'
 
 export function RebuildEmbeddings() {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   const [mode, setMode] = useState<'existing' | 'all'>('existing')
   const [includeSources, setIncludeSources] = useState(true)
   const [includeNotes, setIncludeNotes] = useState(true)
@@ -260,7 +259,7 @@ export function RebuildEmbeddings() {
                     {t('advanced.rebuild.itemsProcessed')
                       .replace('{processed}', processedItems.toString())
                       .replace('{total}', totalItems.toString())
-                      .replace('{percent}', formatNumber(progressPercent, language, { maximumFractionDigits: 1, minimumFractionDigits: 1 }))}
+                      .replace('{percent}', progressPercent.toFixed(1))}
                   </span>
                 </div>
                 <Progress value={progressPercent} className="h-2" />
@@ -289,7 +288,7 @@ export function RebuildEmbeddings() {
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">{t('advanced.rebuild.time')}</p>
                   <p className="text-2xl font-bold">
-                    {processingTimeSeconds !== undefined ? `${formatNumber(processingTimeSeconds, language, { maximumFractionDigits: 1, minimumFractionDigits: 1 })}s` : '—'}
+                    {processingTimeSeconds !== undefined ? `${processingTimeSeconds.toFixed(1)}s` : '—'}
                   </p>
                 </div>
               </div>
@@ -304,9 +303,9 @@ export function RebuildEmbeddings() {
 
             {status.started_at && (
               <div className="text-sm text-muted-foreground space-y-1">
-                <p>{t('common.created').replace('{time}', formatDateTime(status.started_at, language))}</p>
+                <p>{t('common.created').replace('{time}', new Date(status.started_at).toLocaleString())}</p>
                 {status.completed_at && (
-                  <p>{t('notebooks.updated')}: {formatDateTime(status.completed_at, language)}</p>
+                  <p>{t('notebooks.updated')}: {new Date(status.completed_at).toLocaleString()}</p>
                 )}
               </div>
             )}
