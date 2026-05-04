@@ -21,6 +21,7 @@ import { sourcesApi } from '@/lib/api/sources'
 import { useSources, useAddSourcesToNotebook } from '@/lib/hooks/use-sources'
 import { SourceListResponse } from '@/lib/types/api'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatDate } from '@/lib/utils/formatter'
 
 interface AddExistingSourceDialogProps {
   open: boolean
@@ -35,7 +36,7 @@ export function AddExistingSourceDialog({
   notebookId,
   onSuccess,
 }: AddExistingSourceDialogProps) {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery] = useDebounce(searchQuery, 300)
   const [selectedSourceIds, setSelectedSourceIds] = useState<string[]>([])
@@ -172,9 +173,9 @@ export function AddExistingSourceDialog({
     return <FileText className="h-4 w-4" />
   }
 
-  const formatDate = (dateString: string) => {
+  const formatSourceDate = (dateString: string) => {
     try {
-      return new Date(dateString).toLocaleDateString()
+      return formatDate(dateString, language)
     } catch {
       return ''
     }
@@ -254,7 +255,7 @@ export function AddExistingSourceDialog({
                           )}
                         </div>
                         <p className="text-xs text-muted-foreground truncate">
-                          {t('sources.added').replace('{date}', formatDate(source.created))}
+                          {t('sources.added').replace('{date}', formatSourceDate(source.created))}
                         </p>
                       </div>
                     </div>
