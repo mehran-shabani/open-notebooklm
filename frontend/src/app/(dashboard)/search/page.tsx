@@ -23,10 +23,9 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { StreamingResponse } from '@/components/search/StreamingResponse'
 import { AdvancedModelsDialog } from '@/components/search/AdvancedModelsDialog'
 import { SaveToNotebooksDialog } from '@/components/search/SaveToNotebooksDialog'
-import { formatNumber } from '@/lib/utils/formatter'
 
 export default function SearchPage() {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   // URL params
   const searchParams = useSearchParams()
   const urlQuery = searchParams?.get('q') || ''
@@ -464,7 +463,7 @@ export default function SearchPage() {
                                     {result.title}
                                   </button>
                                   <Badge variant="secondary" className="ml-2">
-                                    {formatNumber(result.final_score, language, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                    {result.final_score.toFixed(2)}
                                   </Badge>
                                 </div>
                               </div>
