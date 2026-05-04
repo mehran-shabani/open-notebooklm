@@ -65,6 +65,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { getDateLocale } from '@/lib/utils/date-locale'
 import { toast } from 'sonner'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatDateTime } from '@/lib/utils/formatter'
 import { SourceInsightDialog } from '@/components/source/SourceInsightDialog'
 import { NotebookAssociations } from '@/components/source/NotebookAssociations'
 
@@ -782,7 +783,7 @@ export function SourceDetailContent({
                         })}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(source.created).toLocaleString()}
+                        {formatDateTime(source.created, language)}
                       </p>
                     </div>
                     <div>
@@ -794,7 +795,7 @@ export function SourceDetailContent({
                         })}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(source.updated).toLocaleString()}
+                        {formatDateTime(source.updated, language)}
                       </p>
                     </div>
                   </div>
