@@ -49,7 +49,7 @@ export function NotebookList({
         description={emptyDescription ?? t('chat.startByCreating')}
         action={onAction && actionLabel ? (
           <Button onClick={onAction} variant="outline" className="mt-4">
-            <Plus className="h-4 w-4 me-2" />
+            <Plus className="h-4 w-4 mr-2" />
             {actionLabel}
           </Button>
         ) : undefined}
@@ -69,7 +69,7 @@ export function NotebookList({
             {isExpanded ? (
               <ChevronDown className="h-4 w-4" />
             ) : (
-              <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+              <ChevronRight className="h-4 w-4" />
             )}
           </Button>
         )}

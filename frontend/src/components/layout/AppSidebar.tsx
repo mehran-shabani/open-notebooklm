@@ -151,7 +151,7 @@ export function AppSidebar() {
                 className="text-sidebar-foreground hover:bg-sidebar-accent"
                 data-testid="sidebar-toggle"
               >
-                <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
+                <ChevronLeft className="h-4 w-4" />
               </Button>
             </>
           )}
@@ -195,7 +195,7 @@ export function AppSidebar() {
                     size="sm"
                     className="w-full justify-start bg-primary hover:bg-primary/90 text-primary-foreground border-0"
                    >
-                    <Plus className="h-4 w-4 me-2" />
+                    <Plus className="h-4 w-4 mr-2" />
                     {t('common.create')}
                   </Button>
                 </DropdownMenuTrigger>

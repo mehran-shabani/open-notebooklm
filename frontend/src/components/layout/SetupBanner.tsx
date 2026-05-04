@@ -47,7 +47,7 @@ export function SetupBanner() {
               className="inline-flex items-center shrink-0 text-sm font-medium underline underline-offset-2 hover:text-red-900 dark:hover:text-red-100"
             >
               {t('setupBanner.viewDocs')}
-              <ExternalLink className="ms-1 h-3 w-3" />
+              <ExternalLink className="ml-1 h-3 w-3" />
             </a>
           </AlertDescription>
         </Alert>
@@ -74,7 +74,7 @@ export function SetupBanner() {
           >
             <Link href="/settings/api-keys">
               {t('setupBanner.goToSettings')}
-              <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </AlertDescription>
