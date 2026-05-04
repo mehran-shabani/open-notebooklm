@@ -78,7 +78,7 @@ Audit scope covers main frontend surfaces under `frontend/src/app` and shared UI
 | `frontend/src/lib/hooks/use-sources.ts` | toast title/description strings (success/error flows) | Sources CRUD toasts | translation | high |
 | `frontend/src/lib/hooks/use-notebooks.ts` | toast title/description strings | Notebook CRUD toasts | translation | high |
 | `frontend/src/lib/hooks/use-notes.ts` | toast title/description strings | Note CRUD toasts | translation | high |
-| `frontend/src/lib/hooks/use-credentials.ts` | toast title/description strings | Credential flows | translation | critical |
+| `frontend/src/lib/hooks/use-credentials.ts` | toast strings + concatenation logic (sentence fragments) | Credential flows | translation | critical |
 | `frontend/src/lib/hooks/use-models.ts` | toast title/description strings | Model flows | translation | high |
 | `frontend/src/lib/hooks/use-transformations.ts` | toast title/description strings | Transformation flows | translation | high |
 | `frontend/src/components/common/EmptyState.tsx` | generic empty-state labels/descriptions | Shared empty states | translation / a11y | high |
