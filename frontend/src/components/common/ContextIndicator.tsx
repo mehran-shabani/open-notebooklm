@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatNumber } from '@/lib/utils/formatter'
 
 interface ContextIndicatorProps {
   sourcesInsights: number
@@ -15,17 +16,6 @@ interface ContextIndicatorProps {
   className?: string
 }
 
-// Helper function to format large numbers with K/M suffixes
-function formatNumber(num: number): string {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}M`
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}K`
-  }
-  return num.toString()
-}
-
 export function ContextIndicator({
   sourcesInsights,
   sourcesFull,
@@ -34,7 +24,7 @@ export function ContextIndicator({
   charCount,
   className
 }: ContextIndicatorProps) {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const hasContext = (sourcesInsights + sourcesFull) > 0 || notesCount > 0
 
   if (!hasContext) {
@@ -103,13 +93,13 @@ export function ContextIndicator({
       {(tokenCount !== undefined || charCount !== undefined) && (
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           {tokenCount !== undefined && tokenCount > 0 && (
-            <span>{t('podcasts.contextTokens').replace('{count}', formatNumber(tokenCount))}</span>
+            <span>{t('podcasts.contextTokens').replace('{count}', formatNumber(tokenCount, language, { notation: 'compact', maximumFractionDigits: 1 }))}</span>
           )}
           {tokenCount !== undefined && charCount !== undefined && tokenCount > 0 && charCount > 0 && (
             <span>/</span>
           )}
           {charCount !== undefined && charCount > 0 && (
-            <span>{t('podcasts.contextChars').replace('{count}', formatNumber(charCount))}</span>
+            <span>{t('podcasts.contextChars').replace('{count}', formatNumber(charCount, language, { notation: 'compact', maximumFractionDigits: 1 }))}</span>
           )}
         </div>
       )}

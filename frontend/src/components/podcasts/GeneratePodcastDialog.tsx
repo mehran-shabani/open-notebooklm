@@ -15,6 +15,7 @@ import { PodcastGenerationRequest } from '@/lib/types/podcasts'
 import { QUERY_KEYS } from '@/lib/api/query-client'
 import { useToast } from '@/lib/hooks/use-toast'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatDateTime, formatNumber } from '@/lib/utils/formatter'
 import {
   Dialog,
   DialogContent,
@@ -38,17 +39,6 @@ type SourceMode = 'off' | 'insights' | 'full'
 interface NotebookSelection {
   sources: Record<string, SourceMode>
   notes: Record<string, SourceMode>
-}
-
-// Helper function to format large numbers with K/M suffixes
-function formatNumber(num: number): string {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}M`
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}K`
-  }
-  return num.toString()
 }
 
 function hasSelections(selection?: NotebookSelection): boolean {
@@ -170,9 +160,9 @@ function ContentSelectionPanel({
           </Badge>
           {(tokenCount > 0 || charCount > 0) && (
             <span className="text-xs text-muted-foreground">
-              {tokenCount > 0 && tr.tokens.replace('{count}', formatNumber(tokenCount))}
+              {tokenCount > 0 && tr.tokens.replace('{count}', formatNumber(tokenCount, language, { notation: 'compact', maximumFractionDigits: 1 }))}
               {tokenCount > 0 && charCount > 0 && ' / '}
-              {charCount > 0 && tr.chars.replace('{count}', formatNumber(charCount))}
+              {charCount > 0 && tr.chars.replace('{count}', formatNumber(charCount, language, { notation: 'compact', maximumFractionDigits: 1 }))}
             </span>
           )}
         </div>
@@ -370,9 +360,7 @@ function ContentSelectionPanel({
                                       </span>
                                       <span className="text-xs text-muted-foreground">
                                         {tr.commonUpdated}{' '}
-                                        {new Date(note.updated).toLocaleString(
-                                          language.startsWith('zh') ? language : 'en-US'
-                                        )}
+                                        {formatDateTime(note.updated, language)}
                                       </span>
                                     </Label>
                                   </div>
