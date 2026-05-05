@@ -34,6 +34,12 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => setLanguage('fa-IR')}
+          className={currentLang === 'fa-IR' || currentLang.startsWith('fa') ? 'bg-accent' : ''}
+        >
+          <span>فارسی</span>
+        </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => setLanguage('en-US')}
           className={currentLang === 'en-US' || currentLang.startsWith('en') ? 'bg-accent' : ''}
