@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import '@/lib/i18n'
 import { LanguageLoadingOverlay } from '@/components/common/LanguageLoadingOverlay'
 import i18n from '@/lib/i18n'
+import { isFaLocaleFeatureEnabled } from '@/lib/feature-flags'
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -14,7 +15,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const applyLocaleDirection = (language: string) => {
-      const isRtl = language.toLowerCase().startsWith('fa')
+      const isRtl = isFaLocaleFeatureEnabled() && language.toLowerCase().startsWith('fa')
       document.documentElement.setAttribute('lang', language)
       document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr')
     }
