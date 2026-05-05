@@ -11,7 +11,7 @@ import { bnIN } from './bn-IN';
 import { esES } from './es-ES';
 
 export const resources = {
-  'fa-IR': { ...faIR, translation: enUS },
+  'fa-IR': { common: faIR, auth: {}, dashboard: {}, chat: {}, settings: {}, errors: {}, translation: faIR },
   'zh-CN': { common: zhCN, auth: {}, dashboard: {}, chat: {}, settings: {}, errors: {}, translation: zhCN },
   'en-US': { common: enUS, auth: {}, dashboard: {}, chat: {}, settings: {}, errors: {}, translation: enUS },
   'zh-TW': { common: zhTW, auth: {}, dashboard: {}, chat: {}, settings: {}, errors: {}, translation: zhTW },
