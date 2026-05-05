@@ -366,12 +366,12 @@ export default function SourcesPage() {
                     </div>
                   </td>
                   <td className="h-12 px-4">
-                    <div className="flex flex-col overflow-hidden">
+                    <div className="flex min-w-0 flex-col overflow-hidden">
                       <span className="font-medium truncate">
                         {source.title || t('sources.untitledSource')}
                       </span>
                       {source.asset?.url && (
-                        <span className="text-xs text-muted-foreground truncate">
+                        <span className="text-xs text-muted-foreground truncate" dir="ltr">
                           {source.asset.url}
                         </span>
                       )}
