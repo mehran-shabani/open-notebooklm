@@ -26,6 +26,7 @@ import { ThemeToggle } from '@/components/common/ThemeToggle'
 import { LanguageToggle } from '@/components/common/LanguageToggle'
 import type { TFunction } from 'i18next'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import i18n from '@/lib/i18n'
 import { Separator } from '@/components/ui/separator'
 import {
   Book,
@@ -36,6 +37,7 @@ import {
   Settings,
   LogOut,
   ChevronLeft,
+  ChevronRight,
   Menu,
   FileText,
   Plus,
@@ -86,6 +88,7 @@ export function AppSidebar() {
 
   const [createMenuOpen, setCreateMenuOpen] = useState(false)
   const [isMac, setIsMac] = useState(true) // Default to Mac for SSR
+  const isRtl = i18n.language.toLowerCase().startsWith('fa')
 
   // Detect platform for keyboard shortcut display
   useEffect(() => {
@@ -108,7 +111,7 @@ export function AppSidebar() {
     <TooltipProvider delayDuration={0}>
       <div
         className={cn(
-          'app-sidebar flex h-full flex-col bg-sidebar border-sidebar-border border-r transition-all duration-300',
+          'app-sidebar flex h-full flex-col bg-sidebar border-sidebar-border border-e transition-all duration-300',
           isCollapsed ? 'w-16' : 'w-64'
         )}
       >
@@ -122,7 +125,7 @@ export function AppSidebar() {
             <div className="relative flex items-center justify-center w-full">
               <Image
                 src="/logo.svg"
-                alt="Open Notebook"
+                alt={t('common.appName')}
                 width={32}
                 height={32}
                 className="transition-opacity group-hover:opacity-0"
@@ -151,7 +154,7 @@ export function AppSidebar() {
                 className="text-sidebar-foreground hover:bg-sidebar-accent"
                 data-testid="sidebar-toggle"
               >
-                <ChevronLeft className="h-4 w-4" />
+                {isRtl ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
               </Button>
             </>
           )}
@@ -195,7 +198,7 @@ export function AppSidebar() {
                     size="sm"
                     className="w-full justify-start bg-primary hover:bg-primary/90 text-primary-foreground border-0"
                    >
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="h-4 w-4 me-2" />
                     {t('common.create')}
                   </Button>
                 </DropdownMenuTrigger>

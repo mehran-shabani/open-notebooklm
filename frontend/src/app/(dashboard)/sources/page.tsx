@@ -9,11 +9,10 @@ import { EmptyState } from '@/components/common/EmptyState'
 import { AppShell } from '@/components/layout/AppShell'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { FileText, Link as LinkIcon, Upload, AlignLeft, Trash2, ArrowUpDown } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from '@/lib/hooks/use-translation'
-import { getDateLocale } from '@/lib/utils/date-locale'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { getApiErrorKey } from '@/lib/utils/error-handler'
@@ -367,22 +366,19 @@ export default function SourcesPage() {
                     </div>
                   </td>
                   <td className="h-12 px-4">
-                    <div className="flex flex-col overflow-hidden">
+                    <div className="flex min-w-0 flex-col overflow-hidden">
                       <span className="font-medium truncate">
                         {source.title || t('sources.untitledSource')}
                       </span>
                       {source.asset?.url && (
-                        <span className="text-xs text-muted-foreground truncate">
+                        <span className="text-xs text-muted-foreground truncate" dir="ltr">
                           {source.asset.url}
                         </span>
                       )}
                     </div>
                   </td>
                   <td className="h-12 px-4 text-muted-foreground text-sm hidden sm:table-cell">
-                    {formatDistanceToNow(new Date(source.created), { 
-                      addSuffix: true,
-                      locale: getDateLocale(language)
-                    })}
+                    {formatRelativeTime(source.created, language)}
                   </td>
                   <td className="h-12 px-4 text-center hidden md:table-cell">
                     <span className="text-sm font-medium">{source.insights_count || 0}</span>

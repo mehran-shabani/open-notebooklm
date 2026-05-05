@@ -7,10 +7,9 @@ import { Badge } from '@/components/ui/badge'
 import { Archive, ArchiveRestore, Trash2 } from 'lucide-react'
 import { useUpdateNotebook } from '@/lib/hooks/use-notebooks'
 import { NotebookDeleteDialog } from './NotebookDeleteDialog'
-import { formatDistanceToNow } from 'date-fns'
-import { getDateLocale } from '@/lib/utils/date-locale'
 import { InlineEdit } from '@/components/common/InlineEdit'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 
 interface NotebookHeaderProps {
   notebook: NotebookResponse
@@ -18,8 +17,7 @@ interface NotebookHeaderProps {
 
 export function NotebookHeader({ notebook }: NotebookHeaderProps) {
   const { t, language } = useTranslation()
-  const dfLocale = getDateLocale(language)
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   
   const updateNotebook = useUpdateNotebook()
 
@@ -110,8 +108,8 @@ export function NotebookHeader({ notebook }: NotebookHeaderProps) {
           />
           
           <div className="text-sm text-muted-foreground">
-            {t('common.created').replace('{time}', formatDistanceToNow(new Date(notebook.created), { addSuffix: true, locale: dfLocale }))} • 
-            {t('common.updated').replace('{time}', formatDistanceToNow(new Date(notebook.updated), { addSuffix: true, locale: dfLocale }))}
+            {t('common.created').replace('{time}', formatRelativeTime(notebook.created, language))} • 
+            {t('common.updated').replace('{time}', formatRelativeTime(notebook.updated, language))}
           </div>
         </div>
       </div>

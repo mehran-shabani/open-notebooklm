@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { formatDistanceToNow } from 'date-fns'
-import { getDateLocale } from '@/lib/utils/date-locale'
 import { InfoIcon, RefreshCcw, Trash2 } from 'lucide-react'
 
 import { resolvePodcastAssetUrl } from '@/lib/api/podcasts'
@@ -33,6 +31,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { formatRelativeTime } from '@/lib/utils/formatter'
 import type { TFunction } from 'i18next'
 
 interface EpisodeCardProps {
@@ -205,10 +204,7 @@ export function EpisodeCard({ episode, onDelete, deleting, onRetry, retrying }: 
   }, [episode.audio_url, episode.audio_file, t])
 
   const distance = episode.created
-    ? formatDistanceToNow(new Date(episode.created), {
-        addSuffix: true,
-        locale: getDateLocale(language),
-      })
+    ? formatRelativeTime(episode.created, language)
     : null
 
   const createdLabel = distance
