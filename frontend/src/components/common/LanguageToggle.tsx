@@ -34,6 +34,7 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
 
   // Keep the actual language code for proper comparison
   const currentLang = language || 'en-US'
+  const faEnabled = isFaLocaleFeatureEnabled()
 
   return (
     <DropdownMenu>
