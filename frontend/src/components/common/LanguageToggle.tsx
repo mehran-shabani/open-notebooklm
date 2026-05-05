@@ -9,15 +9,29 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Languages } from 'lucide-react'
 import { useTranslation } from '@/lib/hooks/use-translation'
-import { isFaLocaleFeatureEnabled } from '@/lib/feature-flags'
+import { languages, type LanguageCode } from '@/lib/locales'
 
 interface LanguageToggleProps {
   iconOnly?: boolean
 }
 
+const LANGUAGE_LABELS: Record<LanguageCode, string> = {
+  'fa-IR': 'فارسی',
+  'en-US': 'English',
+  'zh-CN': '简体中文',
+  'zh-TW': '繁體中文',
+  'pt-BR': 'Português',
+  'ja-JP': '日本語',
+  'it-IT': 'Italiano',
+  'fr-FR': 'Français',
+  'ru-RU': 'Русский',
+  'bn-IN': 'বাংলা',
+  'es-ES': 'Español',
+}
+
 export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
   const { language, setLanguage, t } = useTranslation()
-  
+
   // Keep the actual language code for proper comparison
   const currentLang = language || 'en-US'
   const faEnabled = isFaLocaleFeatureEnabled()
@@ -25,10 +39,10 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant={iconOnly ? "ghost" : "outline"} 
-          size={iconOnly ? "icon" : "default"} 
-          className={iconOnly ? "h-9 w-full sidebar-menu-item" : "w-full justify-start gap-2 sidebar-menu-item"}
+        <Button
+          variant={iconOnly ? 'ghost' : 'outline'}
+          size={iconOnly ? 'icon' : 'default'}
+          className={iconOnly ? 'h-9 w-full sidebar-menu-item' : 'w-full justify-start gap-2 sidebar-menu-item'}
         >
           <Languages className="h-[1.2rem] w-[1.2rem]" />
           {!iconOnly && <span>{t('common.language')}</span>}
@@ -36,68 +50,15 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {faEnabled && (
+        {languages.map(({ code }) => (
           <DropdownMenuItem
-            onClick={() => setLanguage('fa-IR')}
-            className={currentLang === 'fa-IR' || currentLang.startsWith('fa') ? 'bg-accent' : ''}
+            key={code}
+            onClick={() => setLanguage(code)}
+            className={currentLang === code || currentLang.startsWith(code.split('-')[0]) ? 'bg-accent' : ''}
           >
-            <span>فارسی</span>
+            <span>{LANGUAGE_LABELS[code]}</span>
           </DropdownMenuItem>
-        )}
-        <DropdownMenuItem 
-          onClick={() => setLanguage('en-US')}
-          className={currentLang === 'en-US' || currentLang.startsWith('en') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.english')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem 
-          onClick={() => setLanguage('zh-CN')}
-          className={currentLang === 'zh-CN' || currentLang.startsWith('zh-Hans') || currentLang === 'zh' ? 'bg-accent' : ''}
-        >
-          <span>{t('common.chinese')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('zh-TW')}
-          className={currentLang === 'zh-TW' || currentLang.startsWith('zh-Hant') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.traditionalChinese')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('pt-BR')}
-          className={currentLang === 'pt-BR' || currentLang.startsWith('pt') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.portuguese')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('ja-JP')}
-          className={currentLang === 'ja-JP' || currentLang.startsWith('ja') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.japanese')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('fr-FR')}
-          className={currentLang === 'fr-FR' || currentLang.startsWith('fr') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.french')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('ru-RU')}
-          className={currentLang === 'ru-RU' || currentLang.startsWith('ru') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.russian')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('bn-IN')}
-          className={currentLang === 'bn-IN' || currentLang.startsWith('bn') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.bengali')}</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('es-ES')}
-          className={currentLang === 'es-ES' || currentLang.startsWith('es') ? 'bg-accent' : ''}
-        >
-          <span>{t('common.spanish')}</span>
-        </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )
