@@ -15,20 +15,6 @@ interface LanguageToggleProps {
   iconOnly?: boolean
 }
 
-const LANGUAGE_LABELS: Record<LanguageCode, string> = {
-  'fa-IR': 'فارسی',
-  'en-US': 'English',
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文',
-  'pt-BR': 'Português',
-  'ja-JP': '日本語',
-  'it-IT': 'Italiano',
-  'fr-FR': 'Français',
-  'ru-RU': 'Русский',
-  'bn-IN': 'বাংলা',
-  'es-ES': 'Español',
-}
-
 export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
   const { language, setLanguage, t } = useTranslation()
 
@@ -55,7 +41,19 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
             onClick={() => setLanguage(code)}
             className={currentLang === code || currentLang.startsWith(code.split('-')[0]) ? 'bg-accent' : ''}
           >
-            <span>{LANGUAGE_LABELS[code]}</span>
+            <span>
+              {code === 'fa-IR' && 'فارسی'}
+              {code === 'en-US' && t('common.english')}
+              {code === 'zh-CN' && t('common.chinese')}
+              {code === 'zh-TW' && t('common.traditionalChinese')}
+              {code === 'pt-BR' && t('common.portuguese')}
+              {code === 'ja-JP' && t('common.japanese')}
+              {code === 'it-IT' && 'Italiano'}
+              {code === 'fr-FR' && t('common.french')}
+              {code === 'ru-RU' && t('common.russian')}
+              {code === 'bn-IN' && t('common.bengali')}
+              {code === 'es-ES' && t('common.spanish')}
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
