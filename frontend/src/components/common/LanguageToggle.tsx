@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Languages } from 'lucide-react'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { isFaLocaleFeatureEnabled } from '@/lib/feature-flags'
 
 interface LanguageToggleProps {
   iconOnly?: boolean
@@ -19,6 +20,7 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
   
   // Keep the actual language code for proper comparison
   const currentLang = language || 'en-US'
+  const faEnabled = isFaLocaleFeatureEnabled()
 
   return (
     <DropdownMenu>
@@ -34,12 +36,14 @@ export function LanguageToggle({ iconOnly = false }: LanguageToggleProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => setLanguage('fa-IR')}
-          className={currentLang === 'fa-IR' || currentLang.startsWith('fa') ? 'bg-accent' : ''}
-        >
-          <span>فارسی</span>
-        </DropdownMenuItem>
+        {faEnabled && (
+          <DropdownMenuItem
+            onClick={() => setLanguage('fa-IR')}
+            className={currentLang === 'fa-IR' || currentLang.startsWith('fa') ? 'bg-accent' : ''}
+          >
+            <span>فارسی</span>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem 
           onClick={() => setLanguage('en-US')}
           className={currentLang === 'en-US' || currentLang.startsWith('en') ? 'bg-accent' : ''}
